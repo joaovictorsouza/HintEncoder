@@ -44,9 +44,9 @@ def train():
         y[i] = tokenizer.encode(sentence, max_question_answer, vocab_size)
 
 
-    hidden_size = 10
-    batch_size = 10
-    epochs = 5
+    hidden_size = 1024
+    batch_size = 64
+    epochs = 200
     print('Hidden Size / Batch size / Epochs = {}, {}, {}'.format(hidden_size, batch_size, epochs))
 
     model = Sequential()

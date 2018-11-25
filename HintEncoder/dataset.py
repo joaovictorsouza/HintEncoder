@@ -20,11 +20,6 @@ class Tokenizer:
     def remove_ponctuation(self, data):
         table = str.maketrans({key: None for key in string.punctuation})
         return data.translate(table)   
-    
-    def normalize_text(self, data):
-        for w in data:
-            w = self.remove_ponctuation(w.lower())
-        return data
 
     def vocab_size(self):
         return len(self.word_to_index)
@@ -38,26 +33,30 @@ class Tokenizer:
         X = np.zeros((maxlen, vocab_size))
         for i, c in enumerate(sentence):
             try:
-                X[i, self.word_to_index[c]] = 1
+                X[i, self.word_to_index[ self.remove_ponctuation(c.lower())]] = 1
             except Exception as e:
                 X[i, self.word_to_index[Tokenizer.not_found_token]] = 1
         return X
 
     def decode(self, X, calc_argmax=True):
+        data = []
         if calc_argmax:
             X = X.argmax(axis=-1)
-        return ''.join(self.index_to_word[x] for x in X)
+        for x in X:
+            if(self.index_to_word[x] != self.not_found_token):
+                data.append(self.index_to_word[x])
+        return ' '.join(data)
 
 
     def tokenize_text(self, paragraph):
-        paragraph = self.remove_ponctuation(paragraph)
+        paragraph = self.remove_ponctuation(paragraph.lower())
         results = []
         for w in paragraph.split(' '):
             results.append(w)
         return results
 
     def text_to_sequence(self, paragraph):
-        paragraph = self.remove_ponctuation(paragraph)
+        paragraph = self.remove_ponctuation(paragraph.lower())
         results = []
         for w in paragraph.split(' '):
             try:
