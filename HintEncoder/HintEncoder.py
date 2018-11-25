@@ -42,7 +42,7 @@ def train():
 
 
     hidden_size = 1024
-    batch_size = 64
+    batch_size = 2
     epochs = 200
     print('Hidden Size / Batch size / Epochs = {}, {}, {}'.format(hidden_size, batch_size, epochs))
 
