@@ -50,7 +50,7 @@ for iteration in range(1, 200):
     for i in range(2):
         ind = np.random.randint(0, len(x))
         rowX, rowy = x[np.array([ind])], y[np.array([ind])]
-        preds = model.predict(rowX, verbose=0)
+        preds = model.predict_classes(rowX, verbose=0)
         q = tokenizer.decode(rowX[0])
         correct = tokenizer.decode(rowy[0])
         guess = tokenizer.decode(preds[0], calc_argmax=False)

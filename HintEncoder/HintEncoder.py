@@ -28,9 +28,6 @@ def train():
     tokenizer = Tokenizer("vocabulary.txt", max_question_answer)
     vocab_size = tokenizer.vocab_size()
 
-    questions = tokenizer.normalize_text(questions)
-    answers = tokenizer.normalize_text(answers)
-    
     x = np.zeros((len(questions), max_question_answer, vocab_size), dtype=np.bool)
     y = np.zeros((len(answers), max_question_answer, vocab_size), dtype=np.bool)
    
